@@ -1,0 +1,40 @@
+1 sudo apt-get update
+2 sudo apt-get dist-upgrade
+3 sudo apt-get install snort
+4 snort -V
+5 sudo gedit +45 /etc/snort/snort.conf and then add your ip
+ipvar HOME_NET 192.168.43.130/24
+
+6 sudo gedit +104 /etc/snort/snort.conf and add the following lines
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+var WHITE_LIST_PATH /etc/snort/rules/iplists
+var BLACK_LIST_PATH /etc/snort/rules/iplists
+
+6 sudo gedit +545 /etc/snort/snort.conf
+UN-comment the 545th line and make it look like this
+include $RULE_PATH/local.rules
+
+7 sudo gedit /etc/snort/rules/local.rules
+ add at the end 
+ alert icmp any any -> $HOME_NET any (msg:”ICMP test”;
+sid:1000001; rev:1;) this is for ICMP 
+
+8 Test Snort :
+sudo snort -T -c /etc/snort/snort.conf
+
+9 Test Snort :
+sudo snort -T -c /etc/snort/rules/local.rules 
+
+10 Snort in IDS mode
+sudo snort -A console -c /etc/snort/snort.conf
+
+11 As soon as the alert gets generated snort also creates log file of all the activity. Which can
+be seen in 
+	/var/log/snort path.
+	
+12 cat alert
+
+13 sudo tcpdump -r snort.log.1665381601
+

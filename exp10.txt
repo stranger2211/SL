@@ -1,0 +1,15 @@
+make a text file
+enter some text and exit the file then use these commands
+
+1 md5sum txtfile
+2 sha1sum txtfile
+3 sha256sum txtfile
+4 sha512sum txtfile
+
+now make changes in the text of that txt file then again use these commands and see the difference in the output
+
+1 md5sum txtfile
+2 sha1sum txtfile
+3 sha256sum txtfile
+4 sha512sum txtfile
+
