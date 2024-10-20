@@ -1,7 +1,0 @@
-1 lsb_release -a
-2 sudo apt-get install squid
-3 cd /etc/squid/
-4 ls
-5 sudo /etc/init.d/squid status
-6 sudo cp /etc/squid/squid.conf squid.conf.copy
-7 ls
