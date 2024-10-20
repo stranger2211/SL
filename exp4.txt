@@ -1,0 +1,16 @@
+Aim: To use Nmap for Network Discovery and Security Audting.Assignment
+1 sudo apt-get install nmap
+2 nmap -sP myip
+3 nmap -sP myip/24
+4 nmap -sP myip otherip
+5 nmap -sL myip otherip
+6 nmap -p 80,21,23 myip
+7 nmap -open myip
+8 nmap --top-ports 5 myip
+9 nmap -sS myip
+10 nmap -sT myip
+11 nmap -sU myip
+12 nmap -sF myip
+13 nmap -sV myip
+14 nmap -sI myip otherip
+15 nmap -O myip

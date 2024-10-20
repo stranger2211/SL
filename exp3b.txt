@@ -1,0 +1,21 @@
+Aim: To study analysis of network packets by sing open source sniffing tools like tcpdump and Wireshark in promiscuous and non-promiscuous mode.
+1) tcpdump -D
+2) sudo tcpdump -i enp1s0
+3) sudo tcpdump -i enp1s0 port 80
+4) sudo tcpdump -i enp1s0 -c 5
+5) sudo tcpdump -i enp1s0 tcp
+6) sudo tcpdump -i enp1s0 src ip address
+7) sudo tcpdump -i enp1s0 "tcp[tcpflags] & (tcp-syn) != 0" >/home/apsit/Desktop/syn.txt
+8) sudo tcpdump -i enp1s0 "tcp[tcpflags] & (tcp-ack) != 0" >/home/apsit/Desktop/ack.txt
+9) sudo tcpdump -i enp1s0 "tcp[tcpflags] & (tcp-fin) != 0" >/home/apsit/Desktop/fin.txt
+10) sudo tcpdump -i enp1s0 -x -X -A -nvvv port 22 > ssh.txt and tell other guy or in new terminal => ssh apsit@myip
+11) sudo tcpdump -i enp1s0 -x -X -A -nvvv port 23 > telnet.txt and telnet myip
+12) sudo apt-get install wireshark
+select your interface i.e enp1s0
+and capture packets by telnet myip
+
+13) sudo ip link set enp1s0 promisc on
+    netstat -i
+    
+14) sudo ip link set enp1s0 promisc off
+    netstat -i

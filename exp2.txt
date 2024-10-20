@@ -1,0 +1,9 @@
+Aim: To Study use of access control Lists to deploy security policies of Web Access by configuring authentication based proxy server by using SQUID.
+
+1 lsb_release -a
+2 sudo apt-get install squid
+3 cd /etc/squid/
+4 ls
+5 sudo /etc/init.d/squid status
+6 sudo cp /etc/squid/squid.conf squid.conf.copy
+7 ls
