@@ -1,0 +1,108 @@
+Experiment No. 06: Implementing IPsec in Linux
+Aim:
+To study and implement IPsec (Internet Protocol Security) in Linux using StrongSwan.
+
+Software Required:
+
+Ubuntu 14.04 OS
+Wireshark 2.6.1 (for packet capture and analysis)
+Strongswan (IPsec implementation)
+Theory:
+IPsec (Internet Protocol Security):
+IPsec is a suite of protocols developed to secure IP communications by authenticating and encrypting each IP packet in a communication session. IPsec ensures data integrity, confidentiality, and authentication over an IP network.
+
+IPsec has two main modes of operation:
+
+Transport Mode: Secures only the payload of the IP packet.
+Tunnel Mode: Secures the entire IP packet, which is then encapsulated into a new IP packet with a new header.
+IPsec protocols:
+
+Authentication Header (AH): Provides integrity and authentication but no encryption.
+Encapsulating Security Payload (ESP): Provides both encryption and authentication.
+IPsec is commonly used in Virtual Private Networks (VPNs) and supports the following:
+
+Encryption algorithms: DES, 3DES, AES
+Authentication algorithms: MD5, SHA
+Key exchange: IKE (Internet Key Exchange) with protocols like Diffie-Hellman (DH)
+StrongSwan:
+StrongSwan is an open-source software that implements IPsec and IKE (v1/v2) protocols, enabling secure communication channels between devices.
+
+Steps for IPsec Implementation:
+Scenario: We will implement IPsec between two machines:
+
+Red Server: 192.168.0.5
+Blue Server: 192.168.0.6
+Step 1: Install StrongSwan
+On both Red and Blue machines, install StrongSwan:
+
+bash
+Copy code
+sudo apt-get update
+sudo apt-get install ipsec-tools strongswan-starter
+Step 2: Configure IPsec
+On both Red and Blue servers, edit the ipsec.conf configuration file:
+
+bash
+Copy code
+sudo gedit /etc/ipsec.conf
+Example configuration:
+
+bash
+Copy code
+config setup
+    charondebug="ike 2, knl 2, cfg 2"
+
+conn %default
+    keyexchange=ikev2
+    authby=secret
+    left=192.168.0.5     # For Red server
+    right=192.168.0.6    # For Blue server
+    auto=start
+On the Blue server, reverse the left and right IP addresses:
+
+bash
+Copy code
+left=192.168.0.6
+right=192.168.0.5
+Step 3: Configure IPsec Secrets
+On both servers, edit the ipsec.secret file to set a shared secret:
+
+bash
+Copy code
+sudo gedit /etc/ipsec.secrets
+Add the following pre-shared key (PSK) for both servers:
+
+bash
+Copy code
+192.168.0.5 192.168.0.6 : PSK "strongpassword"
+Step 4: Establish the IPsec Connection
+On both servers, bring up the IPsec connection:
+
+bash
+Copy code
+sudo ipsec up connection-name
+This step establishes a secure tunnel between Red and Blue servers. If the connection fails due to inconsistencies in encryption algorithms or pre-shared key, correct them and try again.
+
+Step 5: Analyze IPsec Traffic Using Wireshark
+On the Blue server, capture packets using tcpdump:
+
+bash
+Copy code
+sudo tcpdump -i eth0 -w ipsec-traffic.pcap
+Now, on the Red server, restart IPsec:
+
+bash
+Copy code
+sudo ipsec restart
+Use Wireshark on the Blue server to open and analyze the captured packet file (ipsec-traffic.pcap). You will observe encrypted traffic encapsulated in ESP packets if IPsec is functioning correctly.
+
+Step 6: Test the Secure Connection
+Perform a simple ping from the Red server to the Blue server:
+
+bash
+Copy code
+ping 192.168.0.6
+The ping responses should now be encrypted and transferred securely over the IPsec tunnel.
+
+Conclusion:
+IPsec is a comprehensive protocol suite providing key security features such as encryption, integrity, and authentication for IP traffic. It is commonly used in VPNs to secure communication. Although complex to set up, IPsec is regarded as one of the most robust security frameworks for network communications.
