@@ -1,0 +1,75 @@
+Experiment No. 03A
+
+1. Aim:
+To study the installation and configuration of the Linux Kernel firewall iptables.
+
+2. Software Required:
+
+Ubuntu 14.04 OS
+iptables version 1.6
+3. Theory:
+
+A firewall is a network security system designed to prevent unauthorized access to or from a private network. Firewalls can be implemented as hardware, software, or a combination of both. They are particularly useful for preventing unauthorized internet users from accessing private networks, especially intranets. While firewalls can be either hardware or software, the ideal configuration includes both types.
+
+Software Firewalls:
+Software firewalls, such as iptables, are installed on individual computers and can be customized to provide administrators with control over their functions and protection features. A well-configured firewall is essential for securing any modern operating system, and most Linux distributions come with several firewall tools, including iptables.
+
+Iptables Overview:
+iptables is a command-line utility that manages incoming and outgoing network traffic through a set of rules. It operates by comparing network packets against these rules to decide how to handle them. The basic structure of iptables consists of:
+
+Tables: Contain chains of rules.
+Chains: Sequentially process rules.
+Rules: Define actions based on packet characteristics.
+Built-in Tables in Iptables:
+
+Filter Table:
+The default table for iptables, used to filter packets.
+
+INPUT Chain: Handles packets addressed to the server.
+OUTPUT Chain: Contains rules for traffic created by the server.
+FORWARD Chain: Deals with traffic destined for other servers.
+NAT Table:
+Used for Network Address Translation.
+
+PREROUTING Chain: Alters packets before routing.
+POSTROUTING Chain: Alters packets after routing.
+OUTPUT Chain: NAT for locally generated packets.
+Mangle Table:
+Used for specialized packet alteration, such as changing Quality of Service (QoS) bits in TCP headers.
+
+Setting Default Chain Policies:
+The default chain policy is ACCEPT. It is crucial to change this to DROP for all chains to enhance security.
+
+bash
+Copy code
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+When the default policies are set to DROP, you must define rules for both incoming and outgoing traffic as needed.
+
+Basic Iptables Commands:
+Commands must be executed with root privileges. Here are some basic commands:
+
+List current rules:
+
+bash
+Copy code
+sudo iptables -L
+Allow established and related incoming connections:
+
+bash
+Copy code
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+Allow all incoming SSH connections (port 22):
+
+bash
+Copy code
+sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+Allow outgoing SSH to a specific IP address:
+
+bash
+Copy code
+sudo iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+Conclusion:
+In this experiment, we successfully studied and executed commands commonly used for configuring an iptables firewall on a Linux machine. iptables is a versatile tool that allows for extensive customization to meet specific security needs.
+
