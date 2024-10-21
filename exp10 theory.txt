@@ -1,0 +1,89 @@
+Experiment No. 07: Testing Message Integrity with MD5 and SHA-1
+Aim:
+To study and test message integrity by using MD5 and SHA-1 hash functions for varying message sizes.
+
+Software Required:
+
+Ubuntu 14.04 OS
+Theory:
+Hash Functions:
+A hash function takes an input (or message) and returns a fixed-size string of bytes, which is typically a digest that is unique to each unique input. The primary use of hash functions in data transmission and storage is to verify the integrity of data.
+
+Key properties of cryptographic hash functions like MD5 and SHA-1 include:
+
+Deterministic: The same input always gives the same hash.
+Quick computation: The hash value is generated quickly.
+Avalanche Effect: A small change in the input drastically changes the output hash.
+Pre-image resistance: Difficult to reverse-engineer the original message from its hash.
+MD5 (Message Digest Algorithm 5):
+MD5 is a cryptographic hash function that produces a 128-bit (16-byte) hash value, typically represented as a 32-character hexadecimal number. It is widely used to verify data integrity but is no longer considered secure for sensitive information due to vulnerabilities to collision attacks.
+
+SHA-1 (Secure Hash Algorithm 1):
+SHA-1 produces a 160-bit (20-byte) hash value, which is typically represented as a 40-character hexadecimal number. Although more secure than MD5, it too has been deprecated for sensitive applications due to vulnerabilities.
+
+Checksum Usage:
+Checksums are commonly used to verify the integrity of files. A checksum ensures that the data has not been tampered with or corrupted during transmission or storage.
+
+Steps to Test Message Integrity:
+Step 1: Prepare Varying Message Sizes
+We will create multiple text files with varying content lengths to test MD5 and SHA-1 hashes. Use the following commands to create files of different sizes:
+
+bash
+Copy code
+echo "This is a small message" > small.txt
+echo "This is a medium-sized message that is a bit longer." > medium.txt
+echo "This is a very large message that will be much longer than the previous two messages, allowing us to test hash functions on larger datasets." > large.txt
+Step 2: Generate Hashes Using MD5
+To generate the MD5 hash for each file, use the md5sum command:
+
+bash
+Copy code
+md5sum small.txt
+md5sum medium.txt
+md5sum large.txt
+The output will look like this (example for small.txt):
+
+bash
+Copy code
+e99a18c428cb38d5f260853678922e03  small.txt
+Step 3: Generate Hashes Using SHA-1
+To generate the SHA-1 hash for each file, use the sha1sum command:
+
+bash
+Copy code
+sha1sum small.txt
+sha1sum medium.txt
+sha1sum large.txt
+The output will look like this (example for small.txt):
+
+bash
+Copy code
+63a9f0ea7bb98050796b649e85481845  small.txt
+Step 4: Compare Hashes for Data Integrity
+Now, make a small change to one of the files, e.g., append a single character to small.txt:
+
+bash
+Copy code
+echo "!" >> small.txt
+Recalculate the hashes for the modified file:
+
+bash
+Copy code
+md5sum small.txt
+sha1sum small.txt
+Notice how even this small change drastically alters both the MD5 and SHA-1 hashes.
+
+Step 5: Verify File Integrity
+For file integrity verification, MD5 and SHA-1 can be used to check if files have been tampered with during download. For example:
+
+Download a file (e.g., a Linux ISO).
+Run the hash function on the file.
+Compare the generated hash with the official hash provided by the distribution website.
+bash
+Copy code
+md5sum ubuntu.iso
+sha1sum ubuntu.iso
+If the generated hash matches the official hash, the file is intact; otherwise, the file has been altered.
+
+Conclusion:
+In this experiment, we have demonstrated how MD5 and SHA-1 can be used to ensure message integrity. Although both hash functions generate unique outputs for unique inputs, MD5 is faster but less secure, whereas SHA-1 is more secure but still deprecated for critical use cases. The experiment has shown that even a minor change in the file contents leads to a completely different hash value, helping detect even small modifications to data.
