@@ -1,0 +1,184 @@
+Experiment No. 12: Study and Analysis of RSA Cryptosystem and Digital Signature Scheme Using CrypTool
+Aim:
+To study and analyze the RSA cryptosystem and the Digital Signature Scheme using CrypTool.
+
+Software Required:
+
+CrypTool 1.4.41
+Theory:
+1. Digital Signatures:
+A digital signature is a mathematical scheme for verifying the authenticity and integrity of a digital message or document. It provides the following assurances:
+
+Origin Authentication: Ensures that the message came from a specific sender.
+Integrity: Assures that the message or document has not been altered since it was signed.
+Non-repudiation: Prevents the signer from denying the authenticity of their signature.
+How Digital Signatures Work:
+Digital signatures rely on public key cryptography (asymmetric cryptography), which uses two distinct but mathematically linked keys:
+
+Private Key: Used to encrypt the signature data.
+Public Key: Used by the recipient to decrypt and verify the signature.
+Steps in Creating a Digital Signature:
+A one-way hash of the data (e.g., a document) is created.
+The private key is used to encrypt the hash, generating the digital signature.
+The digital signature is sent along with the data.
+Steps in Verifying a Digital Signature:
+The recipient uses the sender's public key to decrypt the digital signature and retrieve the hash.
+The recipient generates a new hash from the received data.
+If both the decrypted hash and the newly generated hash match, the signature is valid, ensuring the data’s authenticity and integrity.
+2. RSA Cryptosystem:
+RSA (Rivest-Shamir-Adleman) is an asymmetric cryptography algorithm that uses a pair of keys: a public key and a private key. RSA's security is based on the difficulty of factoring large integers.
+
+Key Components of RSA:
+Public Key: Shared publicly for encryption.
+Private Key: Kept secret for decryption.
+RSA Key Generation Process:
+Choose two large prime numbers, p and q.
+Compute n = p * q, where n is the modulus.
+Calculate the Euler’s totient function:
+𝜙
+(
+𝑛
+)
+=
+(
+𝑝
+−
+1
+)
+∗
+(
+𝑞
+−
+1
+)
+ϕ(n)=(p−1)∗(q−1)
+Choose an integer e such that 
+1
+<
+𝑒
+<
+𝜙
+(
+𝑛
+)
+1<e<ϕ(n), where e is coprime to 
+𝜙
+(
+𝑛
+)
+ϕ(n). e is the public key exponent.
+Compute d, the private key exponent, such that:
+𝑑
+≡
+𝑒
+−
+1
+(
+𝑚
+𝑜
+𝑑
+ 
+𝜙
+(
+𝑛
+)
+)
+d≡e 
+−1
+ (modϕ(n))
+The public key consists of n and e, while the private key consists of n and d.
+
+Encryption using RSA:
+The message M is converted to an integer m, where 
+0
+<
+𝑚
+<
+𝑛
+0<m<n.
+The ciphertext c is calculated using the public key as:
+𝑐
+≡
+𝑚
+𝑒
+(
+𝑚
+𝑜
+𝑑
+ 
+𝑛
+)
+c≡m 
+e
+ (modn)
+Decryption using RSA:
+The recipient uses the private key to recover the original message m from c as:
+𝑚
+≡
+𝑐
+𝑑
+(
+𝑚
+𝑜
+𝑑
+ 
+𝑛
+)
+m≡c 
+d
+ (modn)
+3. Digital Signature Scheme:
+A Digital Signature Scheme involves three algorithms:
+
+Key Generation Algorithm: Generates a public/private key pair.
+Signing Algorithm: Takes the message and private key to generate a digital signature.
+Signature Verification Algorithm: Takes the message, public key, and signature to verify its authenticity.
+For RSA-based digital signatures:
+
+The signer generates a signature by computing:
+𝜎
+≡
+𝑚
+𝑑
+(
+𝑚
+𝑜
+𝑑
+ 
+𝑛
+)
+σ≡m 
+d
+ (modn), where m is the message and d is the private key.
+The verifier checks the signature by computing:
+𝜎
+𝑒
+≡
+𝑚
+(
+𝑚
+𝑜
+𝑑
+ 
+𝑛
+)
+σ 
+e
+ ≡m(modn), where e is the public key exponent.
+Demonstrating RSA and Digital Signatures Using CrypTool
+Step 1: RSA Encryption/Decryption
+Open CrypTool and select RSA Algorithm under Asymmetric Cryptography.
+Generate a pair of public and private keys using large prime numbers.
+Enter a message (M) and encrypt it using the public key.
+Decrypt the ciphertext using the private key and recover the original message (M).
+Step 2: Creating a Digital Signature
+Select Digital Signatures in CrypTool.
+Choose a hash function (e.g., MD5 or SHA-256) and generate a hash of the message.
+Use your private key to encrypt the hash and create the digital signature.
+Send the message along with the digital signature to the recipient.
+Step 3: Verifying the Digital Signature
+The recipient uses your public key to decrypt the digital signature and recover the hash.
+The recipient hashes the original message again.
+If both the decrypted and newly generated hashes match, the digital signature is valid, confirming the authenticity and integrity of the message.
+Conclusion:
+In this experiment, we studied the RSA cryptosystem and demonstrated the working of Digital Signatures using CrypTool. RSA provides secure communication through its asymmetric encryption scheme, while digital signatures offer a means of ensuring the integrity and authenticity of electronic messages and documents.
