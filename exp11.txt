@@ -1,0 +1,11 @@
+Aim: Aim: To study password cracking using John the ripper
+
+1 sudo apt-get install john
+2 john -test
+3 sudo adduser testuser1
+4 sudo cat /etc/shadow
+
+copy the test user hash value and paste in into new text file using command
+5 nano t1.txt
+6 john t1.txt
+7 john --show t1.txt
