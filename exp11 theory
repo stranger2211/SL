@@ -1,0 +1,95 @@
+Experiment No. 08: Studying Symmetric and Asymmetric Encryption Methods Using CrypTool
+Aim:
+To study and test symmetric and asymmetric encryption methods using CrypTool.
+
+Software Required:
+
+CrypTool 1.4.41
+Theory:
+What is CrypTool?
+
+CrypTool is a freeware program with a graphical user interface (GUI) designed for learning and analyzing cryptographic algorithms.
+It offers a "playful" introduction to both classical and modern cryptography.
+Contains nearly all state-of-the-art cryptographic algorithms and provides tools for cryptanalysis as well.
+Encryption Overview:
+
+Cryptography is the study of secure communication techniques that allow only the sender and intended recipient of a message to view its contents. Encryption is the process of converting plain text into unreadable ciphertext to ensure privacy and data integrity.
+
+CrypTool offers support for various cryptographic algorithms, including both symmetric and asymmetric encryption methods.
+
+Symmetric Encryption:
+In symmetric encryption, a single key is used for both encryption and decryption. Examples include AES, DES, and Blowfish.
+
+Advantages:
+
+Fast encryption and decryption processes.
+Suitable for encrypting large amounts of data.
+Disadvantages:
+
+The key must be shared securely between parties, which can be a challenge.
+Common Symmetric Encryption Algorithms:
+
+AES (Advanced Encryption Standard):
+
+AES is a symmetric key encryption algorithm with key sizes of 128, 192, or 256 bits.
+Known for its strong security and speed.
+DES (Data Encryption Standard):
+
+DES is a block cipher with a 64-bit block size and a 56-bit key.
+It is no longer considered secure for most applications due to advances in computational power.
+Asymmetric Encryption:
+Asymmetric encryption (also known as public-key cryptography) uses two keys: a public key for encryption and a private key for decryption. Examples include RSA and Elliptic Curve Cryptography (ECC).
+
+Advantages:
+
+Does not require secure key exchange.
+More secure for communication over the internet.
+Disadvantages:
+
+Slower compared to symmetric encryption.
+Not ideal for encrypting large amounts of data due to computational intensity.
+Common Asymmetric Encryption Algorithms:
+
+RSA (Rivest-Shamir-Adleman):
+RSA is widely used for secure data transmission.
+It uses two large prime numbers to generate a pair of public and private keys.
+Public key encrypts the message, and the private key decrypts it.
+Caesar Cipher:
+The Caesar Cipher is one of the simplest classical encryption techniques. It is a substitution cipher where each letter in the plaintext is shifted by a fixed number down or up the alphabet.
+
+For example, with a shift of 1, A becomes B, B becomes C, and so on.
+Vigenère Cipher:
+The Vigenère Cipher is a polyalphabetic substitution cipher that uses a keyword to encrypt the plaintext.
+
+Each letter of the keyword corresponds to a row in the Vigenère table.
+For each letter in the plaintext, its corresponding letter in the ciphertext is determined by the keyword letter.
+Playfair Cipher:
+The Playfair Cipher is a digraph substitution cipher, meaning it encrypts pairs of letters instead of single letters.
+
+A key square is used to map letter pairs to their corresponding ciphertext.
+Implementation Using CrypTool:
+Step 1: Caesar Cipher (Symmetric Classic Encryption)
+Open CrypTool and navigate to the Encrypt/Decrypt tab.
+Select Symmetric (Classic) and choose Caesar Cipher.
+Enter the plaintext and choose a shift value to generate the ciphertext.
+Observe the encrypted text and attempt decryption.
+Step 2: Vigenère Cipher
+Select Vigenère Cipher from the Symmetric (Classic) menu.
+Enter the plaintext and choose a keyword.
+Encrypt the message and observe how the keyword modifies the plaintext.
+Step 3: Playfair Cipher
+Select Playfair Cipher under the Symmetric (Classic) category.
+Provide a key word, like "monarchy," and generate the key square.
+Encrypt a plaintext message using the key square and note the output.
+Step 4: DES Encryption
+Choose DES from the Symmetric Algorithms menu.
+Input a plaintext message and key, and encrypt the message using the DES algorithm.
+Observe the resulting ciphertext and decrypt it back to the original plaintext.
+Step 5: RSA Encryption (Asymmetric Algorithm)
+Select RSA from the Asymmetric Algorithms menu.
+Generate a public/private key pair using large prime numbers.
+Encrypt a message using the public key.
+Decrypt the message using the private key.
+Conclusion:
+In this experiment, we studied various symmetric and asymmetric encryption techniques using CrypTool. Symmetric encryption, such as AES and DES, is fast but requires secure key exchange. On the other hand, asymmetric encryption, such as RSA, is more secure for communication, but slower and computationally intensive. Through this exercise, we learned how different encryption techniques work and how they are used to ensure secure communication and data protection.
+
