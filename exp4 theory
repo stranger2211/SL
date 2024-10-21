@@ -1,0 +1,121 @@
+Experiment No. 04: Using Nmap for Network Discovery and Security Auditing
+Academic Year: 2022-23
+Semester: V
+Class / Branch: TE IT
+Subject Lab Incharge: Prof. Apeksha Mohite
+
+1. Aim:
+To use Nmap for network discovery and security auditing.
+
+2. Software Required:
+Operating System: Ubuntu 14.04
+Tool: Nmap
+3. Theory:
+Nmap (Network Mapper) is a powerful security scanner originally developed by Gordon Lyon (also known as Fyodor Vaskovich). It is used to discover hosts and services on a computer network, creating a "map" of the network. Nmap achieves this by sending specially crafted packets to the target host and analyzing the responses. Unlike simpler port scanners, Nmap adapts to network conditions (such as latency and congestion), allowing for more accurate results.
+
+Key Features of Nmap:
+Host Discovery: Identify hosts on a network (e.g., listing hosts that respond to pings).
+Port Scanning: Enumerate open ports on one or more target hosts.
+Version Detection: Determine the application name and version number of listening network services.
+OS Detection: Remotely identify the operating system and some hardware characteristics of network devices.
+Basic Commands:
+Target Specification: nmap <target’s URL or IP>
+OS Detection: nmap -O <target-host's URL or IP>
+Version Detection: nmap -sV <target-host's URL or IP>
+Installation of Nmap:
+To install Nmap on Ubuntu, use the following command:
+
+bash
+Copy code
+sudo apt-get install nmap
+How to Use Nmap Effectively:
+The usage of Nmap varies based on the target machine, with different approaches for simple scanning versus advanced techniques to bypass firewalls and intrusion detection systems.
+
+Basic Nmap Commands:
+Scan a Single System:
+
+bash
+Copy code
+nmap -sP 192.168.43.32
+Scan an Entire Subnet:
+
+bash
+Copy code
+nmap -sP 192.168.43.32/24
+Scan Multiple Targets:
+
+bash
+Copy code
+nmap -sP 192.168.43.32 192.168.43.169
+List All Hosts:
+
+bash
+Copy code
+nmap -sL 192.168.43.32 192.168.43.169
+Exclude Specific IP Addresses:
+
+bash
+Copy code
+nmap 192.168.43.0/24 --exclude 192.168.43.32
+Scan Specific Ports:
+
+bash
+Copy code
+nmap -p 80,21,23 192.168.43.32
+List Open Ports:
+
+bash
+Copy code
+nmap -open 192.168.43.32
+Scan Top N Ports:
+
+bash
+Copy code
+nmap --top-ports 5 192.168.43.32
+Nmap Scanning Techniques:
+1. TCP SYN Scan (-sS):
+This is the default scan type. It is fast and stealthy, sending SYN packets to the target without completing the TCP handshake.
+
+bash
+Copy code
+nmap -sS 192.168.43.32
+2. TCP Connect() Scan (-sT):
+If the SYN scan is not possible, this scan completes the TCP handshake but requires root privileges.
+
+bash
+Copy code
+nmap -sT 192.168.43.32
+3. UDP Scan (-sU):
+Used to identify open UDP ports on the target machine.
+
+bash
+Copy code
+nmap -sU 192.168.43.32
+4. FIN Scan (-sF):
+This scan sends packets with the FIN flag, making it stealthier as it may bypass some firewalls.
+
+bash
+Copy code
+nmap -sF 192.168.43.32
+5. Version Detection (-sV):
+Used to identify the software version running on open ports.
+
+bash
+Copy code
+nmap -sV 192.168.43.32
+6. Idle Scan (-sI):
+An advanced technique for scanning anonymously by using a third-party host (zombie) to send packets.
+
+bash
+Copy code
+nmap -sI 192.168.43.169 192.168.43.32
+OS Detection:
+Nmap can detect remote operating systems and software versions, helping predict known vulnerabilities. It uses a database (nmap-os-db) containing information on over 2,600 operating systems.
+
+Nmap sends TCP/UDP packets to the target machine, examining responses against its database to identify:
+Device type (router, workstation, etc.)
+Running operating system (name and version)
+Network distance (hops between target and attacker)
+4. Conclusion:
+Nmap is a powerful utility that plays a critical role in penetration testing, focusing on information gathering and enumeration. It can function as a vulnerability detector or security scanner, helping network administrators and security professionals assess the security posture of their networks.
+
