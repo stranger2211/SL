@@ -1,0 +1,110 @@
+Experiment No. 2: Access Control List Configuration with SQUID Proxy Server
+1. Aim:
+To study and configure access control lists (ACLs) using the SQUID proxy server.
+
+2. Theory:
+Proxy servers act as intermediaries between local networks and larger networks, such as the Internet. They enhance web service requests by caching commonly accessed pages, improving response times, and providing security by controlling access to servers.
+
+Key Features of SQUID Proxy Server:
+
+Caching: Stores frequently accessed files to speed up subsequent requests.
+Access Control: Implements ACLs to restrict or monitor access based on various criteria (e.g., time of day, user, or domain).
+Protocols Supported: Handles HTTP, FTP, and SSL.
+Access Control Scheme:
+
+ACL Elements: Defined using the acl directive, these specify the type of tests performed against requests.
+Access List Rules: Comprise allow/deny actions based on one or more ACL elements.
+3. Installation of SQUID:
+To install SQUID, use the following command:
+
+bash
+Copy code
+sudo apt-get install squid
+4. Basic Configuration:
+Backup the Configuration File:
+
+bash
+Copy code
+mv /etc/squid/squid.conf /etc/squid/squid.conf.bkp
+grep -ve ^# -ve ^$ /etc/squid/squid.conf.bkp > /etc/squid/squid.conf
+Define ACLs: Edit /etc/squid/squid.conf to add the following lines:
+
+bash
+Copy code
+acl localhost src 127.0.0.1/32
+acl localnet src 192.168.0.0/16
+Access Control Rules: Add the following rules to allow HTTP access:
+
+bash
+Copy code
+http_access allow localhost
+http_access allow localnet
+Restart SQUID: After making changes, restart SQUID:
+
+bash
+Copy code
+sudo systemctl restart squid
+5. Client Configuration:
+Firefox Proxy Settings:
+Go to the Edit menu and choose Preferences.
+Click on Advanced, then on the Network tab, and finally on Settings.
+Select Manual proxy configuration and enter the proxy server's IP address and port (default is 3128).
+6. Verifying Client Access:
+To confirm that a client is accessing the internet through the SQUID server, open a web browser on the client and then monitor requests on the server using:
+
+bash
+Copy code
+sudo tail -f /var/log/squid/access.log
+7. Restricting Access by Client IP:
+To deny access to a specific client (e.g., 192.168.0.104):
+
+Define a new ACL:
+bash
+Copy code
+acl resclient src 192.168.0.104
+Modify the access list:
+bash
+Copy code
+http_access allow localnet !resclient
+8. Restricting Access by Domain and Time:
+To deny access to specific domains:
+
+Create a file /etc/squid/forbidden_domains with the domains to block:
+
+text
+Copy code
+.facebook.com
+localhost
+In the squid.conf:
+
+bash
+Copy code
+acl forbidden dstdomain "/etc/squid/forbidden_domains"
+http_access allow localnet !forbidden
+Restrict access during specific hours:
+
+bash
+Copy code
+acl workingHour time MWFA 10:00-11:00
+http_access allow forbidden workingHour
+http_access deny forbidden
+9. User Authentication:
+To require user authentication using Basic authentication:
+
+Add authentication parameters to squid.conf:
+
+bash
+Copy code
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic credentialsttl 30 minutes
+auth_param basic casesensitive on
+auth_param basic realm Squid proxy-caching web server for APSIT
+acl ncsa proxy_auth REQUIRED
+http_access allow ncsa
+Create the password file:
+
+bash
+Copy code
+htpasswd -c /etc/squid/passwd apsit
+10. Conclusion:
+This experiment demonstrated how to configure SQUID proxy server to implement security controls using ACLs. It covered web traffic filtering and access management while improving response times through caching, thus providing enhanced security and performance for web servers.
