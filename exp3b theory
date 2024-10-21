@@ -1,0 +1,102 @@
+Experiment No. 03 B
+
+1. Aim:
+To study the analysis of network packets using open-source sniffing tools like tcpdump and Wireshark in both promiscuous and non-promiscuous modes.
+
+2. Software Required:
+
+Ubuntu 14.04 OS
+Wireshark 2.6.1
+3. Theory:
+
+Tcpdump:
+Tcpdump is a command-line packet analyzer that allows users to display TCP/IP and other packets being transmitted or received over a network. It is available on most Linux/Unix systems and can save captured packets in a file for future analysis in pcap format.
+
+Installation of Tcpdump:
+To install tcpdump, run the following command:
+
+bash
+Copy code
+sudo apt-get install tcpdump   # for Debian/Ubuntu
+# or
+yum install tcpdump             # for CentOS/Fedora
+TCP Message Flow:
+
+Connection Initialization:
+
+Client sends a SYN packet with a random sequence number (R1).
+Server responds with a SYN-ACK packet, including its own random number (R2) and acknowledging R1+1.
+Client acknowledges with an ACK packet (R2+1).
+Load:
+Payloads travel in both directions, with packets potentially having the ACK, PSH, and URG flags set.
+
+Termination:
+Connection termination involves a FIN message from one device, followed by an ACK, and then a FIN from the other device.
+
+Running Tcpdump:
+The following commands can be used with tcpdump to capture and filter packets:
+
+Display all available interfaces:
+bash
+Copy code
+tcpdump -D
+Capture traffic at a specific interface:
+bash
+Copy code
+tcpdump -i enp1s0
+Capture traffic at any interface:
+bash
+Copy code
+tcpdump -i any
+Capture traffic on a specific port:
+bash
+Copy code
+tcpdump -i enp1s0 port 80
+Capture a specified number of packets:
+bash
+Copy code
+tcpdump -i enp1s0 -c 5
+Capture only TCP traffic:
+bash
+Copy code
+tcpdump -i enp1s0 tcp
+Capture traffic from a specific source IP:
+bash
+Copy code
+tcpdump -i enp1s0 src 192.168.43.169
+Capture only TCP SYN packets:
+bash
+Copy code
+sudo tcpdump -i enp1s0 "tcp[tcpflags] & (tcp-syn) != 0" > /home/apsit/Desktop/syn.txt
+Capture SSH packets:
+bash
+Copy code
+sudo tcpdump -i enp1s0 -x -X -A -nvvv port 22 > ssh.txt
+Capture Telnet packets:
+bash
+Copy code
+sudo tcpdump -i enp1s0 -x -X -A -nvvv port 23 > telnet.txt
+Wireshark:
+Wireshark is a GUI-based application for capturing and analyzing network traffic. It provides deep inspection of hundreds of protocols and allows for live capture and offline analysis.
+
+Installation of Wireshark:
+To install Wireshark, run the following command:
+
+bash
+Copy code
+sudo apt-get install wireshark
+Capturing Data Packets in Wireshark:
+
+Launch Wireshark and select the desired interface to start capturing.
+Use display filters to analyze specific packets (e.g., type telnet to see Telnet packets).
+Follow the TCP stream to see the details of captured packets, such as login information.
+Promiscuous vs. Non-Promiscuous Mode:
+
+Promiscuous Mode: Allows the network interface to accept all packets on the network, regardless of their destination MAC address.
+Non-Promiscuous Mode: Only captures packets directed to the network interface’s MAC address.
+Enabling Promiscuous Mode in Wireshark:
+This can be done through the interface settings in Wireshark or via the command line.
+
+4. Conclusion:
+Network sniffing is valuable for analyzing data transmission and troubleshooting network issues. Tools like tcpdump and Wireshark enable effective monitoring and analysis of network traffic, which can include capturing sensitive information such as passwords.
+
