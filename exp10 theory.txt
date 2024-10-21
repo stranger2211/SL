@@ -1,4 +1,4 @@
-Experiment No. 07: Testing Message Integrity with MD5 and SHA-1
+Experiment No. 10: Testing Message Integrity with MD5 and SHA-1
 Aim:
 To study and test message integrity by using MD5 and SHA-1 hash functions for varying message sizes.
 
